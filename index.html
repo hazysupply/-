@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)file:///C:/Users/Madept%20Gaming/Desktop/Hazys_Market_fixed.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Hazy's Market</title>
+<style>
+    :root {
+      --bg: #090909;
+      --panel: rgba(18, 18, 18, 0.88);
+      --panel-2: rgba(24, 24, 24, 0.96);
+      --line: rgba(212, 175, 55, 0.45);
+      --gold: #d4af37;
+      --gold-bright: #f3cf5a;
+      --text: #f5f5f5;
+      --muted: #cfc7a2;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        linear-gradient(rgba(6, 6, 6, 0.92), rgba(6, 6, 6, 0.96)),
+        url('logo.png') center/55vmin no-repeat fixed,
+        radial-gradient(circle at top, #1a1a1a 0%, #090909 60%);
+    }
+
+    .page {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 64px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(20, 20, 20, 0.96), rgba(10, 10, 10, 0.96));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      padding: 36px 28px 30px;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), transparent 35%, transparent 70%, rgba(212, 175, 55, 0.08));
+      pointer-events: none;
+    }
+
+    .logo-wrap {
+      width: min(100%, 420px);
+      margin: 0 auto 20px;
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(0, 0, 0, 0.38);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+    }
+
+    .logo {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.55));
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      letter-spacing: 0.18em;
+      margin-bottom: 12px;
+    }
+
+    .subtitle {
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.65;
+    }
+
+    .section-label {
+      text-align: center;
+      color: var(--gold);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      margin: 42px 0 18px;
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .category-card {
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(243, 207, 90, 0.75);
+      background: linear-gradient(180deg, rgba(28, 28, 28, 0.95), rgba(18, 18, 18, 0.98));
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .category-card h2 {
+      font-size: 1.45rem;
+      color: var(--gold-bright);
+    }
+
+    .count {
+      font-size: 0.82rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .desc {
+      color: #d9d9d9;
+      font-size: 0.96rem;
+      line-height: 1.55;
+      margin-bottom: 16px;
+      min-height: 48px;
+    }
+
+    details {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 14px;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--gold);
+      font-weight: 700;
+      user-select: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .chevron {
+      transition: transform 0.2s ease;
+      font-size: 0.95rem;
+    }
+
+    details[open] .chevron {
+      transform: rotate(180deg);
+    }
+
+    .dropdown {
+      margin-top: 14px;
+      display: grid;
+      gap: 12px;
+    }
+
+    select,
+    .view-btn {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      min-height: 48px;
+      font-size: 1rem;
+    }
+
+    select {
+      background: #0d0d0d;
+      color: var(--text);
+      padding: 0 14px;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: var(--gold-bright);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
+    }
+
+    .view-btn {
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+      color: #111;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .view-btn:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.04);
+    }
+
+    .note {
+      margin-top: 30px;
+      text-align: center;
+      color: #b9b9b9;
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        width: min(100% - 20px, 1200px);
+        padding-top: 18px;
+      }
+
+      .hero {
+        padding: 24px 18px 22px;
+        border-radius: 22px;
+      }
+
+      .category-card {
+        padding: 18px;
+      }
+
+      .desc {
+        min-height: auto;
+      }
+    }
+  
+
+    .coming-soon {
+      margin-top: 18px;
+      padding: 16px;
+      text-align: center;
+      border-radius: 12px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      color: #111;
+      background: linear-gradient(180deg, var(--gold-bright), var(--gold));
+      box-shadow: 0 6px 18px rgba(212, 175, 55, 0.25);
+    }
+
+
+
+.concentrate-btn:hover{
+  transform:translateY(-2px) scale(1.02);
+  filter:brightness(1.1);
+}
+
+.concentrate-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:20px;
+  padding:18px;
+  border-radius:12px;
+  font-weight:800;
+  letter-spacing:0.1em;
+  color:#111;
+  background:linear-gradient(180deg,var(--gold-bright),var(--gold));
+  text-decoration:none;
+  transition:transform 0.2s ease, filter 0.2s ease;
+}
+.concentrate-btn:hover{
+  transform:translateY(-2px) scale(1.02);
+  filter:brightness(1.1);
+}
+</style>
+<style id="operaUserStyle" type="text/css"></style></head>
+<body>
+<main class="page">
+<section class="hero">
+<h1>HAZY'S MARKET</h1>
+<p class="subtitle">Built around quality, consistency, and a better experience.</p>
+</section>
+<p class="section-label">Browse Categories</p>
+<section class="categories">
+<article class="category-card">
+<div class="card-top">
+</div>
+<div class="coming-soon">FLOWER COMING SOON!</div>
+</article>
+<article class="category-card">
+<a class="concentrate-btn" href="file:///C:/Users/Madept%20Gaming/Desktop/test.png">CONCENTRATES</a></article>
+<article class="category-card">
+<div class="coming-soon">CARTS COMING SOON!</div>
+</article>
+<article class="category-card">
+<div class="coming-soon">DISPOSABLES COMING SOON!</div>
+</article>
+<article class="category-card">
+<div class="coming-soon">EDIBLES COMING SOON!</div>
+</article>
+</section>
+</main>
+<script>
+    document.querySelectorAll('.view-btn').forEach((button) => {
+      button.addEventListener('click', () => {
+        const select = button.parentElement.querySelector('select');
+        const selectedValue = select.value;
+
+        if (!selectedValue) {
+          alert('Please select a product first.');
+          return;
+        }
+
+        window.open(selectedValue, '_blank');
+      });
+    });
+  </script>
+</body></html>
